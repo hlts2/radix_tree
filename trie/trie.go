@@ -96,3 +96,32 @@ func (t *Trie) Search(seq string) (bool, interface{}) {
 
 	return true, node.item
 }
+
+// Delete deletes node of given seq in the trie truee
+func (t *Trie) Delete(seq string) bool {
+	node := t.root
+
+	for i, r := range seq {
+		child := node.child
+		if child == nil {
+			return false
+		}
+
+		if i == len(seq)-1 && child.data == r {
+			node.child = child.bros
+			return true
+		}
+
+		for child.bros != nil {
+			if i == len(seq)-1 && child.bros.data == r {
+				child.bros = child.bros.bros
+				return true
+			}
+			child = child.bros
+		}
+
+		node = node.child
+	}
+
+	return false
+}
