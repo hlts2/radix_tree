@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 // Trie is base Trie tree object
 type Trie struct {
 	root *Node
@@ -63,7 +61,8 @@ func (n *Node) deleteChild(r rune) bool {
 	return false
 }
 
-func (t *Trie) insert(seq string) {
+// Insert inserts seq in the trie tree
+func (t *Trie) Insert(seq string) {
 	node := t.root
 
 	for _, r := range seq {
@@ -75,7 +74,8 @@ func (t *Trie) insert(seq string) {
 	}
 }
 
-func (t *Trie) search(seq string) bool {
+// Search searches item of given seq in the tre tree
+func (t *Trie) Search(seq string) bool {
 	node := t.root
 
 	for _, r := range seq {
@@ -86,16 +86,4 @@ func (t *Trie) search(seq string) bool {
 	}
 
 	return true
-}
-
-func main() {
-	t := NewNode()
-	t.insert("abc")
-	fmt.Println(t.root)
-	fmt.Println(t.root.child.data)
-	fmt.Println(t.root.child.child.data)
-	fmt.Println(t.root.child.child.child.data)
-
-	fmt.Println(t.search("abc"))
-	fmt.Println(t.search("cba"))
 }
