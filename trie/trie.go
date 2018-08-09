@@ -12,8 +12,8 @@ type Node struct {
 	data  rune
 }
 
-// NewNode returns Trie object
-func NewNode() *Trie {
+// NewTrie returns Trie object
+func NewTrie() *Trie {
 	return &Trie{
 		root: new(Node),
 	}
