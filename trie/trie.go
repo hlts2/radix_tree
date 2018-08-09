@@ -1,4 +1,4 @@
-package main
+package trie
 
 // Trie is base Trie tree object
 type Trie struct {
