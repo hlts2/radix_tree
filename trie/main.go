@@ -23,8 +23,8 @@ func NewNode() *Trie {
 
 func (n *Node) setChild(r rune) *Node {
 	node := &Node{
-		data:  r,
-		child: n.child,
+		data: r,
+		bros: n.child,
 	}
 	n.child = node
 	return node
@@ -91,7 +91,6 @@ func (t *Trie) search(seq string) bool {
 func main() {
 	t := NewNode()
 	t.insert("abc")
-
 	fmt.Println(t.root)
 	fmt.Println(t.root.child.data)
 	fmt.Println(t.root.child.child.data)
