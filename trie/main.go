@@ -75,6 +75,19 @@ func (t *Trie) insert(seq string) {
 	}
 }
 
+func (t *Trie) search(seq string) bool {
+	node := t.root
+
+	for _, r := range seq {
+		node = node.getChild(r)
+		if node == nil {
+			return false
+		}
+	}
+
+	return true
+}
+
 func main() {
 	t := NewNode()
 	t.insert("abc")
@@ -83,4 +96,7 @@ func main() {
 	fmt.Println(t.root.child.data)
 	fmt.Println(t.root.child.child.data)
 	fmt.Println(t.root.child.child.child.data)
+
+	fmt.Println(t.search("abc"))
+	fmt.Println(t.search("cba"))
 }
