@@ -11,22 +11,22 @@ type Trie struct {
 type Node struct {
 	bros  *Node
 	child *Node
-	data  string
+	data  rune
 }
 
-func (n *Node) setChild(x string) *Node {
+func (n *Node) setChild(r rune) *Node {
 	node := &Node{
-		data:  x,
+		data:  r,
 		child: n.child,
 	}
 	n.child = node
 	return node
 }
 
-func (n *Node) getChild(x string) *Node {
+func (n *Node) getChild(r rune) *Node {
 	node := n.child
 	for node != nil {
-		if node.data == x {
+		if node.data == r {
 			break
 		}
 		node = node.bros
@@ -34,19 +34,19 @@ func (n *Node) getChild(x string) *Node {
 	return node
 }
 
-func (n *Node) deleteChild(x string) bool {
+func (n *Node) deleteChild(r rune) bool {
 	node := n.child
 	if node == nil {
 		return false
 	}
 
-	if node.data == x {
+	if node.data == r {
 		n.child = n.child.bros
 		return true
 	}
 
 	for node.bros != nil {
-		if node.bros.data == x {
+		if node.bros.data == r {
 			node.bros = node.bros.bros
 			return true
 		}
@@ -54,6 +54,18 @@ func (n *Node) deleteChild(x string) bool {
 	}
 
 	return false
+}
+
+func (t *Trie) insert(seq string) {
+	node := t.root
+
+	for _, r := range seq {
+		child := node.getChild(r)
+		if child == nil {
+			child = node.setChild(r)
+		}
+		node = child
+	}
 }
 
 func main() {
