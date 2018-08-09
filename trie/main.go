@@ -14,6 +14,13 @@ type Node struct {
 	data  rune
 }
 
+// NewNode returns Trie object
+func NewNode() *Trie {
+	return &Trie{
+		root: new(Node),
+	}
+}
+
 func (n *Node) setChild(r rune) *Node {
 	node := &Node{
 		data:  r,
@@ -69,5 +76,11 @@ func (t *Trie) insert(seq string) {
 }
 
 func main() {
-	fmt.Println("vim-go")
+	t := NewNode()
+	t.insert("abc")
+
+	fmt.Println(t.root)
+	fmt.Println(t.root.child.data)
+	fmt.Println(t.root.child.child.data)
+	fmt.Println(t.root.child.child.child.data)
 }
