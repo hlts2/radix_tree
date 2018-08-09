@@ -36,7 +36,11 @@ func (n *Node) getChild(x string) *Node {
 
 func (n *Node) deleteChild(x string) bool {
 	node := n.child
-	if node != nil && node.data == x {
+	if node == nil {
+		return false
+	}
+
+	if node.data == x {
 		n.child = n.child.bros
 		return true
 	}
