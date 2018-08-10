@@ -11,6 +11,7 @@ type Node struct {
 	child *Node
 	data  rune
 	item  interface{}
+	last  bool
 }
 
 // NewTrie returns Trie object
@@ -77,6 +78,7 @@ func (t *Trie) Insert(seq string, item interface{}) {
 
 		if i == len(seq)-1 {
 			child.item = item
+			child.last = true
 		}
 
 		node = child
@@ -123,5 +125,49 @@ func (t *Trie) Delete(seq string) bool {
 		node = node.child
 	}
 
+	return false
+}
+
+func (n *Node) traverse() []string {
+	child := n.child
+	if child == nil {
+		return nil
+	}
+
+	list := make([]string, 0)
+	for child != nil {
+		li := child.traverse()
+		if li == nil {
+			list = append(list, string(child.data))
+		} else {
+			for _, v := range li {
+				list = append(list, string(child.data)+v)
+			}
+		}
+
+		val := string(child.data)
+		ok := exist(list, val)
+		if !ok && child.last {
+			list = append(list, val)
+		}
+
+		child = child.bros
+	}
+
+	return list
+}
+
+// Traverse Searches all seq
+func (t *Trie) Traverse() []string {
+	node := t.root
+	return node.traverse()
+}
+
+func exist(lists []string, val string) bool {
+	for _, v := range lists {
+		if v == val {
+			return true
+		}
+	}
 	return false
 }
